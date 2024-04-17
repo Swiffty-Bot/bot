@@ -1,2 +1,5 @@
-Swiffty:registerEvent("on_ready")
-Swiffty:registerEvent("on_message")
+Swiffty:registerEvent("ready")
+Swiffty:registerEvent("message")
+Swiffty:registerEvent("message_update")
+Swiffty:registerEvent("message_delete")
+Swiffty:registerEvent("message_delete_bulk")

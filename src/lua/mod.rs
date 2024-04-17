@@ -26,7 +26,7 @@ pub fn load_lua() -> Lua {
     lua
 }
 
-pub async fn send_event<V: IntoLuaMulti>(event_name: String, event_data: V) -> Result<(), LuaError> {
+pub async fn send_event<V: IntoLuaMulti>(event_name: &str, event_data: V) -> Result<(), LuaError> {
     let lua = LUA.clone();
     
     lua.globals().call_async_function("Swiffty:triggerEvent", (event_name, event_data)).await?;
