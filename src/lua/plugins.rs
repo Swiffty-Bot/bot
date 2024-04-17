@@ -35,7 +35,7 @@ pub fn load_plugin(lua: &Lua, dir: PathBuf) {
     let manifest = dir.join("plugin.toml");
 
     if !manifest.exists() {
-        error!("Plugin at {dir:?} does not have a manifest");
+        warn!("Plugin at {dir:?} does not have a manifest, ignoring");
         return;
     }
 
@@ -44,10 +44,11 @@ pub fn load_plugin(lua: &Lua, dir: PathBuf) {
 
     info!("Loading plugin {} v{}", manifest.name, manifest.version);
 
+    // TODO src in manifest could possibly be a glob pattern. we want to prevent directory traversal attacks
     let src = dir.join(manifest.src);
 
     if !src.exists() {
-        error!("Plugin at {dir:?} does not have a src file");
+        warn!("Plugin at {dir:?} does not have an src directory, ignoring");
         return;
     }
 
@@ -55,6 +56,7 @@ pub fn load_plugin(lua: &Lua, dir: PathBuf) {
         let entry = entry.unwrap();
         let path = entry.path();
 
+        debug!("Loading file {:?}", path);
         if entry.file_type().is_file() && path.extension().unwrap().to_str().unwrap().starts_with("lua") {
             let src = std::fs::read_to_string(path).unwrap();
             lua.load(&src).exec().unwrap();
