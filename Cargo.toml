@@ -4,4 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+lazy_static = "1.4.0"
 mlua = { version = "0.9.7", features = ["luau", "async", "serialize", "macros"] }
+serenity = "0.12.1"
+toml = "0.8.12"
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+walkdir = "2.5.0"
