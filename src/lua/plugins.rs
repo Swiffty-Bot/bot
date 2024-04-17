@@ -20,6 +20,10 @@ pub fn load_plugins(lua: &Lua) {
 #[derive(Deserialize)]
 pub struct PluginManifest {
     pub name: String,
+
+    #[serde(default = "(This plugin does not have a description)")]
+    pub description: String,
+    
     pub version: String,
     pub repo: Option<String>,
 
